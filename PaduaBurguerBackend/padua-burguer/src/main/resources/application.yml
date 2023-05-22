@@ -1,0 +1,28 @@
+cors:
+  originPatterns: http://localhost:8080 
+security:
+  jwt:
+    token:
+      secret-key: 0f84f99ecbf921e889f189367ecb8d7e
+      expire-length: 3600000
+spring:
+  datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://localhost:3306/padua_rest_spring_api?useTimezone=true&serverTimezone=UTC
+     username: root
+     password: 9723dilo
+  main:
+    banner-mode: off
+  jpa:
+    hibernate:
+     ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      show-sql: false  
+springdoc:
+  paths-to-match: 
+  - /auth/**
+  - /api/**/**
+  swagger-ui:
+   use-root-path: true
