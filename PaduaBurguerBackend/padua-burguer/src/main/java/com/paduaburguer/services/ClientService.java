@@ -74,16 +74,24 @@ public class ClientService {
 	}
 	
 	
-	public ClientDTO update(ClientDTO client) {
+	public ClientNewDTO update(ClientNewDTO client) {
 		
 		if(client == null) throw new RequiredObjectIsNullException();
 		
 		var entity = repository.findById(client.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this id!"));
 		
-		entity.setName(client.getName());
+		Address adr = new Address(null, client.getAddress(), client.getNumber(), client.getComplement(), client.getNeighborhood(), client.getCity(), client.getState(), client.getCep(), entity);
 		
-		var cli = mapper.map(repository.save(entity), ClientDTO.class);
+		entity.setName(client.getName());
+		entity.setCpf(client.getCpf());
+		entity.setEmail(client.getEmail());
+		
+		entity.getAddresses().add(0, adr);
+		var t = entity.getTelephones().toArray();
+		t[0] = client.getTelephone(); 
+		
+		var cli = mapper.map(repository.save(entity), ClientNewDTO.class);
 		
 		cli.add(linkTo(methodOn(ClientController.class).findById(cli.getId())).withSelfRel());
 		

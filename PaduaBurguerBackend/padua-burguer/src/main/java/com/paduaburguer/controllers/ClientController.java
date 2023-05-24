@@ -126,7 +126,7 @@ public class ClientController {
 				@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
 		}
 	)
-	public ClientDTO update(@RequestBody ClientDTO client) {
+	public ClientNewDTO update(@RequestBody ClientNewDTO client) {
 		return service.update(client);
 	}
 	
